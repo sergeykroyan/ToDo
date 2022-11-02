@@ -21,5 +21,6 @@ app_name = 'root'
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('api.urls')),
+    path('api/token/', include('user.urls')),
     path('', include('todo.urls')),
 ]
