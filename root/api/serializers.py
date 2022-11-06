@@ -1,11 +1,14 @@
 from rest_framework.serializers import ModelSerializer
+from rest_framework import serializers
 from todo.models import Task
 
 
 class TaskSerializer(ModelSerializer):
+    user = serializers.ReadOnlyField(source='user.id')
+
     class Meta:
         model = Task
-        fields = ('title', 'description', 'created', 'complete')
+        fields = '__all__'
         read_only = 'created'
 
     def create(self, validated_data):
