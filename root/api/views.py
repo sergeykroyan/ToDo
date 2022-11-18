@@ -1,16 +1,7 @@
-from django.shortcuts import render
 from rest_framework import generics
 from .serializers import TaskSerializer
 from todo.models import Task
-from rest_framework.permissions import SAFE_METHODS, IsAuthenticated, IsAuthenticatedOrReadOnly, BasePermission, IsAdminUser
-
-
-class TaskUserWritePermission(BasePermission):
-    def has_object_permission(self, request, view, obj):
-        if request.method in SAFE_METHODS:
-            return True
-        print(request.user)
-        return obj.user == request.user
+from .permissions import TaskUserWritePermission
 
 
 class TaskList(generics.ListCreateAPIView):

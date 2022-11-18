@@ -4,5 +4,5 @@ from .views import *
 app_name = 'todo'
 
 urlpatterns = [
-    path('', app)
+    path('', app, name='tasks'),
 ]

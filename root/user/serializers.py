@@ -16,3 +16,15 @@ class UserSerializer(ModelSerializer):
         user.set_password(validated_data['password'])
         user.save()
         return user
+
+
+class UpdateUserByAdminSerializer(ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'is_active', 'is_staff']
+
+    def update(self, instance, validated_data):
+        instance.is_active = validated_data.get('is_active', instance.is_active)
+        instance.is_staff = validated_data.get('is_staff', instance.is_staff)
+        instance.save()
+        return instance
