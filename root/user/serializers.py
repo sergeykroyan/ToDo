@@ -1,8 +1,8 @@
-from rest_framework.serializers import ModelSerializer
+from rest_framework import serializers
 from .models import User
 
 
-class UserSerializer(ModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['id', 'email', 'username', 'password']
@@ -18,13 +18,13 @@ class UserSerializer(ModelSerializer):
         return user
 
 
-class UpdateUserByAdminSerializer(ModelSerializer):
+class UpdateUserByAdminSerializer(UserSerializer):
     class Meta:
-        model = User
-        fields = ['id', 'username', 'is_active', 'is_staff']
+        fields = UserSerializer.Meta.fields + ['is_active', 'is_staff']
 
     def update(self, instance, validated_data):
         instance.is_active = validated_data.get('is_active', instance.is_active)
         instance.is_staff = validated_data.get('is_staff', instance.is_staff)
         instance.save()
         return instance
+
